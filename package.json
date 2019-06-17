@@ -1,0 +1,30 @@
+{
+  "name": "vue_frontend",
+  "version": "1.0.0",
+  "description": "Vue frontend template",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx parcel index.html",
+    "build": "npx parcel build index.html --out-file index --no-cache",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Coen McClelland",
+  "license": "UNLICENCED",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.6",
+    "vuejs-logger": "^1.5.3"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.0.0",
+    "parcel-bundler": "^1.12.3",
+    "pug": "^2.0.3",
+    "vue-template-compiler": "^2.6.10",
+    "vue-hot-reload-api": "^2.3.3"
+  },
+  "browserslist": [
+    "since 2017-06"
+  ]
+}
