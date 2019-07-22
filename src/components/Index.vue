@@ -8,6 +8,8 @@
     br
     a(href='#' @click="test_server") Test Server API (GET /test)
     p Your server response: {{server_response}}
+    br
+    button(@click="logout") LOGOUT
 
 </template>
 
@@ -38,6 +40,16 @@ export default {
                 this.$log.error(e);
                 this.server_response = "ERROR";
             }
+        },
+        logout: async function () {
+            try {
+                await this.$api.logout();
+                this.$router.push('/');
+            } catch (e) {
+                Vue.$log.debug("Logout failed");
+                Vue.$log.debug(e);
+            }
+
         }
     }
 }

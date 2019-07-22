@@ -6,19 +6,44 @@ Vue.use(Router);
 import Index from '../components/Index';
 import About from '../components/About';
 import NotFound from '../components/NotFound';
+import Login from '../components/Login';
+
+const ifNotAuthenticated = (to, from, next) => {
+    if (!Vue.api.is_authenticated()) {
+        next();
+    } else {
+        next('/dash');
+    }
+};
+
+const ifAuthenticated = (to, from, next) => {
+    if (Vue.api.is_authenticated()) {
+        next();
+    } else {
+        next('/');
+    }
+};
 
 const routes = [
     {
-        path: '/',
-        component: Index
+        path: '/dash',
+        component: Index,
+        beforeEnter: ifAuthenticated
     },
     {
         path: '/about',
-        component: About
+        component: About,
+        beforeEnter: ifAuthenticated
+    },
+    {
+        path: '/',
+        component: Login,
+        beforeEnter: ifNotAuthenticated
     },
     {
         path: '*',
-        component: NotFound
+        component: NotFound,
+        beforeEnter: ifAuthenticated
     }
 ];
 
