@@ -5,13 +5,12 @@ const server = axios.create({
     baseURL: BASE_URL
 });
 
-// Check for an access token in localstorage
-let localToken = localStorage.getItem('user-jwt') || '';
-if (localToken != '') {
-    server.defaults.headers.common['x-access-token'] = localToken;
-}
-
 function wrapper (Vue) {
+    // Check the userstore for existing auth tokens
+    if (Vue.user.is_authenticated) {
+        server.defaults.headers.common['x-access-token'] = Vue.user.token;
+    }
+
     return {
         // Testing functions
         test: async function () {
@@ -31,8 +30,8 @@ function wrapper (Vue) {
         login: async function () {
             // INSERT BACKEND AUTH CALL HERE
             let token = "abcd1234";
-            // Update local token
-            localToken = token;
+            // Update user store
+            Vue.user.token = token;
             // Push it to localstorage
             localStorage.setItem('user-jwt', token);
             // Update the axios default header
@@ -41,16 +40,11 @@ function wrapper (Vue) {
         },
         logout: async function () {
             // Remove it from localstorage
-            localToken = '';
+            Vue.user.token = null;
             localStorage.removeItem('user-jwt');
             delete server.defaults.headers.common['x-access-token'];
             Vue.$log.debug("Successful logout");
         },
-        is_authenticated: function () {
-            return localToken != '';
-        },
-
-
 
         send_enquiry: async function (enquiry_data) {
             Vue.$log.debug("Sending enquiry email");
@@ -60,7 +54,5 @@ function wrapper (Vue) {
         }
     }
 }
-
-
 
 export default wrapper;

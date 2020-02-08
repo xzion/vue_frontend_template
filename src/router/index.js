@@ -9,7 +9,7 @@ import NotFound from '../components/NotFound';
 import Login from '../components/Login';
 
 const ifNotAuthenticated = (to, from, next) => {
-    if (!Vue.api.is_authenticated()) {
+    if (!Vue.user.is_authenticated) {
         next();
     } else {
         next('/dash');
@@ -17,7 +17,7 @@ const ifNotAuthenticated = (to, from, next) => {
 };
 
 const ifAuthenticated = (to, from, next) => {
-    if (Vue.api.is_authenticated()) {
+    if (Vue.user.is_authenticated) {
         next();
     } else {
         next('/');
