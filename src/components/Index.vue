@@ -46,8 +46,8 @@ export default {
                 await this.$api.logout();
                 this.$router.push('/');
             } catch (e) {
-                Vue.$log.debug("Logout failed");
-                Vue.$log.debug(e);
+                this.$log.debug("Logout failed");
+                this.$log.debug(e);
             }
 
         }

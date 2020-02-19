@@ -23,8 +23,8 @@ export default {
                 await this.$api.login();
                 this.$router.push('/dash');
             } catch (e) {
-                Vue.$log.debug("Login failed");
-                Vue.$log.debug(e);
+                this.$log.debug("Login failed");
+                this.$log.debug(e);
             }
         }
     }
